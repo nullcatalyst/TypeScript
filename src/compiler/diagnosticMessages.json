@@ -3631,6 +3631,10 @@
         "category": "Message",
         "code": 6204
     },
+    "Output JSX attributes as string literals (surrounded by quotes)": {
+        "category": "Message",
+        "code": 6205
+    },
 
     "Projects to reference": {
         "category": "Message",

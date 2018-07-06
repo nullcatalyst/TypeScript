@@ -4352,7 +4352,7 @@ namespace ts {
         /* @internal */ pretty?: boolean;
         reactNamespace?: string;
         jsxFactory?: string;
-        jsxQuoteAttributes?: boolean;
+        jsxAttributeLiterals?: boolean;
         composite?: boolean;
         removeComments?: boolean;
         rootDir?: string;

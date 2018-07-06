@@ -522,6 +522,12 @@ namespace ts {
             description: Diagnostics.Specify_the_JSX_factory_function_to_use_when_targeting_react_JSX_emit_e_g_React_createElement_or_h
         },
         {
+            name: "jsxAttributeLiterals",
+            type: "boolean",
+            category: Diagnostics.Advanced_Options,
+            description: Diagnostics.Output_JSX_attributes_as_string_literals_surrounded_by_quotes
+        },
+        {
             name: "diagnostics",
             type: "boolean",
             category: Diagnostics.Advanced_Options,
