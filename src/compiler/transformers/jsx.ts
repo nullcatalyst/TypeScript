@@ -295,7 +295,7 @@ namespace ts {
         function getAttributeName(node: JsxAttribute): StringLiteral | Identifier {
             const name = node.name;
             const text = idText(name);
-            if (/^[A-Za-z_]\w*$/.test(text)) {
+            if (!compilerOptions.jsxQuoteAttributes && /^[A-Za-z_]\w*$/.test(text)) {
                 return name;
             }
             else {
