@@ -3849,6 +3849,12 @@
               </Str>
               <Disp Icon="Str" />
             </Item>
+            <Item ItemId=";Output_JSX_attributes_as_string_literals_surrounded_by_quotes_6205" ItemType="0" PsrId="306" Leaf="true">
+              <Str Cat="Text">
+                <Val><![CDATA[Output JSX attributes as string literals (surrounded by quotes)]]></Val>
+              </Str>
+              <Disp Icon="Str" />
+            </Item>
             <Item ItemId=";Output_directory_for_generated_declaration_files_6166" ItemType="0" PsrId="306" Leaf="true">
               <Str Cat="Text">
                 <Val><![CDATA[Output directory for generated declaration files.]]></Val>

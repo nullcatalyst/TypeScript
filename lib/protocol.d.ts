@@ -591,6 +591,12 @@ declare namespace ts.server.protocol {
     interface DefinitionRequest extends FileLocationRequest {
         command: CommandTypes.Definition;
     }
+    interface DefinitionAndBoundSpanRequest extends FileLocationRequest {
+        readonly command: CommandTypes.DefinitionAndBoundSpan;
+    }
+    interface DefinitionAndBoundSpanResponse extends Response {
+        readonly body: DefinitionInfoAndBoundSpan;
+    }
     /**
      * Go to type request; value of command field is
      * "typeDefinition". Return response giving the file locations that
@@ -2305,7 +2311,6 @@ declare namespace ts.server.protocol {
 
     interface TextInsertion {
         newText: string;
-        /** The position in newText the caret should point to after the insertion. */
         caretOffset: number;
     }
 
@@ -2321,13 +2326,9 @@ declare namespace ts.server.protocol {
     }
 
     enum OutliningSpanKind {
-        /** Single or multi-line comments */
         Comment = "comment",
-        /** Sections marked by '// #region' and '// #endregion' comments */
         Region = "region",
-        /** Declarations and expressions */
         Code = "code",
-        /** Contiguous blocks of import declarations */
         Imports = "imports"
     }
 
@@ -2341,56 +2342,27 @@ declare namespace ts.server.protocol {
     enum ScriptElementKind {
         unknown = "",
         warning = "warning",
-        /** predefined type (void) or keyword (class) */
         keyword = "keyword",
-        /** top level script node */
         scriptElement = "script",
-        /** module foo {} */
         moduleElement = "module",
-        /** class X {} */
         classElement = "class",
-        /** var x = class X {} */
         localClassElement = "local class",
-        /** interface Y {} */
         interfaceElement = "interface",
-        /** type T = ... */
         typeElement = "type",
-        /** enum E */
         enumElement = "enum",
         enumMemberElement = "enum member",
-        /**
-         * Inside module and script only
-         * const v = ..
-         */
         variableElement = "var",
-        /** Inside function */
         localVariableElement = "local var",
-        /**
-         * Inside module and script only
-         * function f() { }
-         */
         functionElement = "function",
-        /** Inside function */
         localFunctionElement = "local function",
-        /** class X { [public|private]* foo() {} } */
         memberFunctionElement = "method",
-        /** class X { [public|private]* [get|set] foo:number; } */
         memberGetAccessorElement = "getter",
         memberSetAccessorElement = "setter",
-        /**
-         * class X { [public|private]* foo:number; }
-         * interface Y { foo:number; }
-         */
         memberVariableElement = "property",
-        /** class X { constructor() { } } */
         constructorImplementationElement = "constructor",
-        /** interface Y { ():number; } */
         callSignatureElement = "call",
-        /** interface Y { []:number; } */
         indexSignatureElement = "index",
-        /** interface Y { new():Y; } */
         constructSignatureElement = "construct",
-        /** function foo(*Y*: string) */
         parameterElement = "parameter",
         typeParameterElement = "type parameter",
         primitiveType = "primitive type",
@@ -2400,11 +2372,7 @@ declare namespace ts.server.protocol {
         letElement = "let",
         directory = "directory",
         externalModuleName = "external module name",
-        /**
-         * <JsxTagName attribute1 attribute2={0} />
-         */
         jsxAttribute = "JSX attribute",
-        /** String literal */
         string = "string"
     }
 
@@ -2427,11 +2395,6 @@ declare namespace ts.server.protocol {
         text?: string;
     }
 
-    /**
-     * Type of objects whose values are all of the same type.
-     * The `in` and `for-in` operators can *not* be safely used,
-     * since `Object.prototype` may be modified by outside code.
-     */
     interface MapLike<T> {
         [index: string]: T;
     }
@@ -2441,13 +2404,9 @@ declare namespace ts.server.protocol {
     }
 
     interface ProjectReference {
-        /** A normalized path on disk */
         path: string;
-        /** The path as the user originally wrote it */
         originalPath?: string;
-        /** True if the output of this reference should be prepended to the output of this project. Only valid for --outFile compilations */
         prepend?: boolean;
-        /** True if it is intended that this reference form a circularity */
         circular?: boolean;
     }
 
